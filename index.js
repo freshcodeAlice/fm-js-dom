@@ -6,23 +6,12 @@
 
 */
 
-function getAlert() {
-    alert('Hello, user');
+function getAlert(event) {
+    const btn = event.target;
+    event.target.style.display = 'none';
+   
 }
 
 const buttonElement = document.getElementById('btn');
-console.dir(buttonElement);
 buttonElement.addEventListener('click', getAlert); // Навісили обробку події 'click' на кнопку
 
-/*
-Зробіть кнопку, додайте їй id, напишіть функцію, яка виводить в консоль "привіт"
-навісити обробку події наведення миші на цю кнопку
-
-*/
-
-function consoleHello() {
-    console.log('Hello')
-}
-
-const secondButton = document.getElementById('second-btn');
-secondButton.addEventListener('mouseover', consoleHello);
