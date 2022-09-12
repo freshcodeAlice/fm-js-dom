@@ -7,11 +7,15 @@
 */
 
 function getAlert(event) {
-    const btn = event.target;
-    event.target.style.display = 'none';
-   
+    console.log(event);
+     event.target.style.display = 'none';
+    event.target.removeEventListener('click', getAlert); // видалили обробку події
 }
 
 const buttonElement = document.getElementById('btn');
 buttonElement.addEventListener('click', getAlert); // Навісили обробку події 'click' на кнопку
+buttonElement.addEventListener('click', sayHello);
 
+function sayHello() {
+    alert('hello');
+}
