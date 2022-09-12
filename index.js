@@ -6,16 +6,16 @@
 
 */
 
-function getAlert(event) {
-    console.log(event);
-     event.target.style.display = 'none';
-    event.target.removeEventListener('click', getAlert); // видалили обробку події
-}
 
-const buttonElement = document.getElementById('btn');
-buttonElement.addEventListener('click', getAlert); // Навісили обробку події 'click' на кнопку
-buttonElement.addEventListener('click', sayHello);
 
-function sayHello() {
-    alert('hello');
+const form = document.getElementById('name-form');
+
+form.addEventListener('submit', consoleForm);
+
+
+function consoleForm(event){
+    event.preventDefault();
+    const form = event.target;
+    const value = form[0].value;
+   console.log(`Hello, ${value ? value : 'Anonym'}`);
 }
