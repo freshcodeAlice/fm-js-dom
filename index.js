@@ -1,15 +1,9 @@
-const collection = document.getElementsByClassName('paragraph');
-// console.log(collection);
+const btn = document.querySelector('#btnbtn');
+console.log(btn);
 
-const btns = document.getElementsByTagName('button');
-console.log(btns);
+const paragraphCollection = document.querySelectorAll('.paragraph:nth-child(even)');
+console.log(paragraphCollection);
 
-
-
-function hello() {
-    console.log('Hello, user');
-}
-
-for (const btn of btns) {
-    btn.addEventListener('click', hello);
+for (const par of paragraphCollection) {
+    par.style.color = 'red';
 }
