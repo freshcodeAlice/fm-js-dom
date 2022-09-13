@@ -1,21 +1,15 @@
-/* Node - вузол (узел) */
+const collection = document.getElementsByClassName('paragraph');
+// console.log(collection);
 
-/*
-1. З точки зору браузера ВСІ елементи на сторінці є об'єктами
-2. Взаємодія з сторінкою породжує Події, подія - це об'єкт
-
-*/
+const btns = document.getElementsByTagName('button');
+console.log(btns);
 
 
 
-const form = document.getElementById('name-form');
+function hello() {
+    console.log('Hello, user');
+}
 
-form.addEventListener('submit', consoleForm);
-
-
-function consoleForm(event){
-    event.preventDefault();
-    const form = event.target;
-    const value = form[0].value;
-   console.log(`Hello, ${value ? value : 'Anonym'}`);
+for (const btn of btns) {
+    btn.addEventListener('click', hello);
 }
