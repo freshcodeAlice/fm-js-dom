@@ -20,11 +20,11 @@ class Slider{
         this._currentIndex = v;
     }
 
-    get nextSlide() {
+    get next() {
         return (this.currentIndex+1) % this._images.length;
     }
 
-    get prevSlide() {
+    get prev() {
         return (this.currentIndex-1 + this._images.length) % this._images.length;
     }
 }
