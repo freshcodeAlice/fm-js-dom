@@ -5,7 +5,7 @@
 4. За натиснення "-" число зменьшується на 1
 
 */
-let num = 0;
+let num = '';
 
 const div = document.querySelector('#number');
 const [prev, next] = document.querySelectorAll('.btn');
@@ -17,11 +17,11 @@ function updateDiv() {
 }
 
 prev.addEventListener('click', () => {
-    num--;
+    num = num.substring(1);
     updateDiv();
 });
 
 next.addEventListener('click', () => {
-    num++;
+    num += '*';
     updateDiv();
 })
