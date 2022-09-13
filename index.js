@@ -1,27 +1,19 @@
 /*
-1. Маємо число
-2. Маємо дві кнопки: +, -
-3. За натиснення "+" число збільшується на 1
-4. За натиснення "-" число зменьшується на 1
+1. Маємо div
+2. Маємо дві кнопки - на одній написано "Зробити червоним", на другій - "Зробити зеленим".
+3. За натиснення на кнопку фоновий колір оцього діва змінюється на відповідний колір, вказаний на кнопці
+
 
 */
-let num = '';
 
-const div = document.querySelector('#number');
-const [prev, next] = document.querySelectorAll('.btn');
-console.dir(div);
+const div = document.querySelector('.box');
+const classList = div.classList;
+const [red, green] = document.querySelectorAll('.btn');
 
+red.addEventListener('click', () => {
+    classList.toggle('red-little');
+})
 
-function updateDiv() {
-    div.innerHTML = num;
-}
-
-prev.addEventListener('click', () => {
-    num = num.substring(1);
-    updateDiv();
-});
-
-next.addEventListener('click', () => {
-    num += '*';
-    updateDiv();
+green.addEventListener('click', () => {
+    classList.toggle('green-big');
 })
