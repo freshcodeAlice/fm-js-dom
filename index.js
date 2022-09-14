@@ -1,18 +1,17 @@
 /*
-1. Маємо елемент img
-2. Маємо дві кнопки, які в атрибутах data- містять посилання на певну картинку (адреса картинки)
-3. За натиснення на кнопку img має показати ту картинку, адреса якої зберігалася у кнопці.
+1. Маємо кнопку
+2. За натиснення на неї потрібно створити новий елемент - div квадратний з зеленим кольором фону
 
 
 
 */
 
-const [btn1, btn2] = document.querySelectorAll('button');
-
-btn1.addEventListener('click', clickHandler);
-btn2.addEventListener('click', clickHandler);
-
-function clickHandler ({target}) {
-    const img = target.parentNode.children[0];
-    img.setAttribute('src', target.dataset.src);
+function createDiv() {
+    const div = document.createElement('div'); // 1. Створюємо елемент у пам'яті 
+    div.classList.add('box');
+    div.append('Hello text');
+    document.body.append(div); // 2. Приєднуємо елемент до батьківського елементу
 }
+
+const btn = document.querySelector('button');
+btn.addEventListener('click', createDiv);
