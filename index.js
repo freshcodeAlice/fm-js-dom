@@ -23,36 +23,26 @@ green.addEventListener('click', () => {
  */
 
 
-const btn = document.querySelector('button');
-const div = document.querySelector('#root');
-
-const eventHandler = (event) => {
-    if(event.currentTarget === document.body) {
-        event.stopPropagation();
-        console.log('Ніяких тобі кнопок')
-    }
-}
-// console.group();
- btn.addEventListener('click', () => {
-    console.log('hello, button');
- });
-// div.addEventListener('click', eventHandler, {capture: true});
- document.body.addEventListener('click', eventHandler, {capture: true});
-// window.addEventListener('click', eventHandler, {capture: true})
-// console.groupEnd();
-
 /*
-3 фази події:
-
-1. Фаза занурення. Подія стається на рівні ОС, ОС передає її браузеру (Window), той передає document -> body -> ..... -> елемент, на якому сталася подія
-
-2. Фаза цілі. Подія досягла елемента, елемент - це таргет
-
-3. Фаза сплиття. Подія починає спливати у зворотньому напрямку, тобто від елемента до браузера.
+Створіть інпут, який при втраті фокусу (подія blur) виводити в сусідньому div квадрат числа, який був введений у інпут
 
 
 */
 
 
-// const event = new MouseEvent('click');
-// btn.dispatchEvent(event);
+
+const input = document.querySelector('input');
+
+
+function blurHandler(event) {
+    const value = event.target.value;
+    const number = Number(value);
+    const div = document.querySelector('#root');
+    if(Number.isNaN(number)) {
+        div.textContent = 'Input must be a number';
+        return;
+    } 
+    div.textContent = number*number;
+}
+
+input.addEventListener('blur', blurHandler);
