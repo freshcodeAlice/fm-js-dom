@@ -1,41 +1,19 @@
 /*
 1. Маємо div
-2. Маємо дві кнопки - на одній написано "Зробити червоним", на другій - "Зробити зеленим".
+2. Маємо 5 кнопок, на кожній написаний колір
 3. За натиснення на кнопку фоновий колір оцього діва змінюється на відповідний колір, вказаний на кнопці
 
-
-*/
-/*
-const div = document.querySelector('.box');
-const classList = div.classList;
-const [red, green] = document.querySelectorAll('.btn');
-
-red.addEventListener('click', () => {
-    classList.toggle('red-little');
-})
-
-green.addEventListener('click', () => {
-    classList.toggle('green-big');
-})
-
-
-
- */
-
-
-/*
-Створіть інпут, який при втраті фокусу (подія blur) виводити в сусідньому div квадрат числа, який був введений у інпут
-
-
 */
 
 
+const buttons = document.querySelectorAll('button');
+// const div = document.querySelector('#root');
 
-const button = document.querySelector('button');
-
-
-function blurHandler({target}) {
-   target.disabled = true;
+for (const btn of buttons) {
+    btn.addEventListener('click', clickHandler);
 }
 
-button.addEventListener('click', blurHandler);
+
+function clickHandler ({target: {dataset: {color}, parentNode}}) {
+    parentNode.style.backgroundColor = color;
+}
