@@ -31,18 +31,11 @@ green.addEventListener('click', () => {
 
 
 
-const input = document.querySelector('input');
+const button = document.querySelector('button');
 
 
-function blurHandler(event) {
-    const value = event.target.value;
-    const number = Number(value);
-    const div = document.querySelector('#root');
-    if(Number.isNaN(number)) {
-        div.textContent = 'Input must be a number';
-        return;
-    } 
-    div.textContent = number*number;
+function blurHandler({target}) {
+   target.disabled = true;
 }
 
-input.addEventListener('blur', blurHandler);
+button.addEventListener('click', blurHandler);
