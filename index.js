@@ -1,21 +1,33 @@
 /*
-Дан section, на якій треба клацати мишею
-Дан div, який має переміститись на точку, в яку клацнули мишею.
+Переробити гру навпаки: відслідковувати натиснення на box, якщо мишею попали - збільшити лічильник поряд з ігровим полем. Якщо не попали, нічого не змінювати, а box отримує нові рандомні координати
 
-
+Math.floor(Math.random() * (parent.offsetWidth - 0)) + min - координата по горизонтали + 'px';
+ - координата по горизонтали + 'px';
 */
 
 const field = document.querySelector('#game-field');
 const box = document.querySelector('#box');
+const divCounter = document.querySelector('#counter');
+let counter = 0;
 
-field.addEventListener('click', clickHandler, {capture: true});
+field.addEventListener('click', clickHandler);
 
 
 function clickHandler(event) {
-    event.stopPropagation();
-    if(event.currentTarget === event.target) {
-        const {target:{children: {box}}, clientX, clientY } = event;
-        box.style.top = `${clientY - (box.offsetHeight / 2)}px`;
-        box.style.left = `${clientX - (box.offsetWidth / 2)}px`;
+    const {currentTarget, target, currentTarget:{children: {box}}} = event;
+    if(currentTarget !== target) {
+      updateCounter();
     }
+
+    box.style.top = `${randomCoordinates(currentTarget.offsetHeight)}px`;
+    box.style.left = `${randomCoordinates(currentTarget.offsetWidth)}px`;
+}
+
+function updateCounter() {
+    divCounter.textContent = ++counter;
+}
+
+
+function randomCoordinates(max) {
+    return Math.floor(Math.random() * max);
 }
