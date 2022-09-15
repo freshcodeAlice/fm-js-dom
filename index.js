@@ -1,17 +1,21 @@
 /*
-1. Маємо кнопку
-2. За натиснення на неї потрібно створити новий елемент - div квадратний з зеленим кольором фону
-
+Дан section, на якій треба клацати мишею
+Дан div, який має переміститись на точку, в яку клацнули мишею.
 
 
 */
 
-function createDiv() {
-    const div = document.createElement('div'); // 1. Створюємо елемент у пам'яті 
-    div.classList.add('box');
-    div.append('Hello text');
-    document.body.append(div); // 2. Приєднуємо елемент до батьківського елементу
-}
+const field = document.querySelector('#game-field');
+const box = document.querySelector('#box');
 
-const btn = document.querySelector('button');
-btn.addEventListener('click', createDiv);
+field.addEventListener('click', clickHandler, {capture: true});
+
+
+function clickHandler(event) {
+    event.stopPropagation();
+    if(event.currentTarget === event.target) {
+        const {target:{children: {box}}, clientX, clientY } = event;
+        box.style.top = `${clientY - (box.offsetHeight / 2)}px`;
+        box.style.left = `${clientX - (box.offsetWidth / 2)}px`;
+    }
+}
