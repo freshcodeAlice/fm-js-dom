@@ -1,80 +1,60 @@
-const root = document.querySelector('#root');
+/*
 
-const cardArray = data.map((user)=>createCard(user));
+1. Зробити інпут для вводу тексту
+2. Зробити кнопку, яка по натисненню текст з інпута перетворює на елемент списку.
 
-root.append(...cardArray);
+<input type="text" />
+<button>Click to add</buton>
+<ul>
+    <li>Зробити щось одне</li> <-- ось тут кнопка самознищення елементу списку
+    <li>Зробити щось інше</li>
+</ul>
 
-function createCard(user) {
-    const imageWrapper = createImageWrapper(user);
-    const h2 = createElement('h2', {classNames: ['username']}, user.name);
-    const p = createElement('p', {classNames: ['desciption', 'super-pagraph']}, user.description);
+Задачка з *:
+до кожного li приєднати кнопку, за допомогою якої елемент зі списку можна видалити.
 
-    return createElement('article', {classNames: ['card-wrapper']}, imageWrapper, h2, p);
+Задачка з **:
+до кожного li доєднати другу кнопку, за натиснення якої можна відредагувати текст li
+Створювати новий input поряд з li, кнопка яка була для зміни 
+
+
+
+
+<li> Some text <button>Change text</button><button>X</button>
+---> якщо натиснути на change text -->
+<li> Some text <input type="text"><button>Save</button></li>
+*/
+
+
+
+const root = document.getElementById('root');
+const form = document.getElementById('form');
+
+const state = [];
+
+form.addEventListener('submit', addItem);
+
+function addItem(event){
+    event.preventDefault();
+    const {target: {textInput: {value}}} = event;
+    state.push(value);
+    addOneLi(value);
 }
 
-/**
- * 
- * @param {String} type - тип елемента, що треба створити
- * @param {Object} options 
- * @param {String[]} options.classNames - список классів
- * @param {Node} children - список дочірніх вузлів
- */
-
-function createElement(type, {classNames}, ...children) {
-    const elem = document.createElement(type);
-    elem.classList.add(...classNames);
-    elem.append(...children);
-    return elem;
+function addOneLi(value) {
+    const li = createItem(value);
+    root.append(li);
 }
 
-function createImageWrapper(user) {
-    const imgWrapper = createElement('div', {classNames: ['image-wrapper']});
-    imgWrapper.setAttribute('id', `wrapper${user.id}`);
-    imgWrapper.style.backgroundColor = stringToColor(user.name);
-    const img = createUserImage(user);
-    return imgWrapper;
-}
-
-
-
-function createUserImage(user) {
-    const img = document.createElement('img');
-    img.setAttribute('src', user.profilePicture);
-    img.setAttribute('alt', user.name);
-    img.dataset.id = user.id; //data-id
-    img.classList.add('card-image');
-
-    img.addEventListener('error', imageErrorHandler);
-    img.addEventListener('load', imageLoadHandler);
-    return img;
-}
-
-/* Event Handlers */
-
-function imageLoadHandler({target}) {
-    // console.log('image successfully loaded');
-    const parentWrapper = document.getElementById(`wrapper${target.dataset.id}`);
-   parentWrapper.append(target);
-}
-
-function imageErrorHandler({target}) {
-    target.remove();
-    // console.log('image loading has error');
+function updateView() {
+    const liArray = state.map(item => createItem(item));
+    root.append(...liArray);
 }
 
 
-
-/* Utils function  */
-
-function stringToColor(str) {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-      hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    let colour = '#';
-    for (let i = 0; i < 3; i++) {
-      let value = (hash >> (i * 8)) & 0xFF;
-      colour += ('00' + value.toString(16)).substr(-2);
-    }
-    return colour;
-  }
+function createItem(value) {
+    const li = document.createElement('li');
+    li.append(value);
+    li.classList.add('item');
+    return li;
+}
