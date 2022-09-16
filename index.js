@@ -2,15 +2,10 @@ const root = document.querySelector('#root');
 
 const cardArray = data.map((user)=>createCard(user));
 
+root.append(...cardArray);
+
 function createCard(user) {
-    /* TODO:
-    +1. Refactor to short code
-    2. Create image placeholder: first letter of name + random background-color
-    3. When image is loading, show placeholder, than change placeholder to img
-    */
-
     const imageWrapper = createImageWrapper(user);
-
     const h2 = createElement('h2', {classNames: ['username']}, user.name);
     const p = createElement('p', {classNames: ['desciption', 'super-pagraph']}, user.description);
 
@@ -35,6 +30,7 @@ function createElement(type, {classNames}, ...children) {
 function createImageWrapper(user) {
     const imgWrapper = createElement('div', {classNames: ['image-wrapper']});
     imgWrapper.setAttribute('id', `wrapper${user.id}`);
+    imgWrapper.style.backgroundColor = stringToColor(user.name);
     const img = createUserImage(user);
     return imgWrapper;
 }
@@ -51,21 +47,34 @@ function createUserImage(user) {
     img.addEventListener('error', imageErrorHandler);
     img.addEventListener('load', imageLoadHandler);
     return img;
-
 }
 
+/* Event Handlers */
 
 function imageLoadHandler({target}) {
-    console.log('image successfully loaded');
+    // console.log('image successfully loaded');
     const parentWrapper = document.getElementById(`wrapper${target.dataset.id}`);
    parentWrapper.append(target);
 }
 
 function imageErrorHandler({target}) {
     target.remove();
-    console.log('image loading has error');
+    // console.log('image loading has error');
 }
 
 
 
-root.append(...cardArray);
+/* Utils function  */
+
+function stringToColor(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    let colour = '#';
+    for (let i = 0; i < 3; i++) {
+      let value = (hash >> (i * 8)) & 0xFF;
+      colour += ('00' + value.toString(16)).substr(-2);
+    }
+    return colour;
+  }
