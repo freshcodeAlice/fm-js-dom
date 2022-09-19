@@ -1,28 +1,19 @@
 /*
-1. В html створити квадрат 50х50
-2. за натиснення під ним створити інпут для вводу тексту
-3. За ентером інпут зникає, а в квадраті відображається те, що було введено в інпут
+const regexp = /^Test$/; //шукаємо слово "Тест"
+/^[A-Za-z]{2,5}$/ //шукаємо слово з 2-5 літер (великих чи маленьких)
+/^[A-Za-z0-9\_\.]+\@[A-Za-z0-9]+\.[A-Za-z0-9]+$/ // email
+
+
 */
+const testString = 'sunnyday23@mail.com';
+const failTestString = '434sdf';
 
+const str1 = 'hello';
+const str2 = new String('hello');
 
-const box = document.querySelector('#box');
+//RegExp
 
-box.addEventListener('click', boxClickHandler)
-
-
-function boxClickHandler(event) {
-    const input = document.createElement('input');
-    input.addEventListener('keydown', inputKeyHandler);
-    const parent = event.target.parentNode;
-    parent.append(input);
-}
-
-function inputKeyHandler (event) {
-    if(event.keyCode === 13) {
-        const {target, target: {value, previousElementSibling}} = event;
-        // 2. Передали дані сусідньому елементу (боксу)
-        previousElementSibling.textContent = value;
-        //1. Знищили сам інпут
-        target.remove();
-    }
-};
+const reg1 = /^[A-Za-z0-9\_\.]+\@[A-Za-z0-9]+\.[A-Za-z0-9]+$/mi;
+console.dir(reg1);
+const reg2 = new RegExp('^[A-Za-z]{2,5}$');
+console.log(reg2);
