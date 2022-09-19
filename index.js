@@ -32,9 +32,9 @@ const state = [];
 
 form.addEventListener('submit', addItem);
 
-function addItem(event){
+function addItem(event) {
     event.preventDefault();
-    const {target: {textInput: {value}}} = event;
+    const { target: { textInput: { value } } } = event;
     state.push(value);
     addOneLi(value);
 }
@@ -52,23 +52,53 @@ function updateView() {
 
 function createItem(value) {
     const li = document.createElement('li');
-    li.append(value, createButton());
+    li.append(value, createButton({ 
+        btnText: 'Edit', 
+        handlers: { type: 'click', callback: editMode } }), 
+        createButton({
+            btnText: 'X',
+            handlers: {
+                type: 'click',
+                callback: deleteHandler
+            }
+        }));
     li.classList.add('item');
-    li.dataset.id = state.length-1;
+    li.dataset.id = state.length - 1;
     return li;
 }
 
 
-function createButton(){
+/**
+ * 
+ * @param {String} options.btnText 
+ * @param {Object} options.handlers
+ */
+
+function createButton({ btnText, handlers: { type, callback } }) {
     const btn = document.createElement('button');
-    btn.append('X');
-    btn.addEventListener('click', deleteHandler);
+    btn.append(btnText);
+    btn.addEventListener(type, callback);
     return btn;
 }
 
-function deleteHandler({target}) {
- //   const id = event.target.parentNode.dataset.id;
-    const {parentNode, parentNode: {dataset: {id}}} = target;
+function deleteHandler({ target }) {
+    //   const id = event.target.parentNode.dataset.id;
+    const { parentNode, parentNode: { dataset: { id } } } = target;
     state.splice(id, 1);
     parentNode.remove();
+}
+
+
+
+
+function editMode({ target: { parentNode } }) {
+    const input = document.createElement('input');
+    input.addEventListener('blur', inputBlurHandler);
+    parentNode.append(input);
+}
+
+function inputBlurHandler({ target, target: { parentNode, value, parentNode: { dataset: { id } } } }) {
+    state[id] = value;
+    parentNode.firstChild.nodeValue = value;
+    target.remove();
 }
