@@ -18,8 +18,6 @@
 Створювати новий input поряд з li, кнопка яка була для зміни 
 
 
-
-
 <li> Some text <button>Change text</button><button>X</button>
 ---> якщо натиснути на change text -->
 <li> Some text <input type="text"><button>Save</button></li>
@@ -54,7 +52,23 @@ function updateView() {
 
 function createItem(value) {
     const li = document.createElement('li');
-    li.append(value);
+    li.append(value, createButton());
     li.classList.add('item');
+    li.dataset.id = state.length-1;
     return li;
+}
+
+
+function createButton(){
+    const btn = document.createElement('button');
+    btn.append('X');
+    btn.addEventListener('click', deleteHandler);
+    return btn;
+}
+
+function deleteHandler({target}) {
+ //   const id = event.target.parentNode.dataset.id;
+    const {parentNode, parentNode: {dataset: {id}}} = target;
+    state.splice(id, 1);
+    parentNode.remove();
 }
