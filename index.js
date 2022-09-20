@@ -1,14 +1,24 @@
-/*   Через кожну секунду виводити в консоль числа від 1 до 20 */
+/* JSON - JavaScript Object Notation) */
 
 
-function count() {
-    let i = 1;
-    let id = setTimeout(function recursive(){
-        console.log(i++);
-        if(i < 10) {
-            setTimeout(recursive, 1000);
-        }
-    }, 1000);
+const user = {
+    firstName: 'John',
+    lastName: 'Doe',
+    avatar: '',
+    age: 20,
+    footSize: 46,
+    address: {
+        street: 'Central',
+        house: 34
+    },
+    sayHello: function() { //function will be ignored!
+        console.log(`${this.firstName} say: Hello!`)
+    },
+    nickName: undefined, // will be ignored
+    superPower: null,
+    isSubscribe: true,
+    [Symbol()]: 'unique',  // will be ignored
+    friends: [{
+        firstName: 'Spiderman'
+    }, {}]
 }
-
-count();
