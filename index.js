@@ -3,15 +3,12 @@
 
 function count() {
     let i = 1;
-    const id = setInterval(() => {
+    let id = setTimeout(function recursive(){
         console.log(i++);
-
-        if(i > 10) {
-            clearInterval(id);
-            console.timeEnd('1');
+        if(i < 10) {
+            setTimeout(recursive, 1000);
         }
-     }, 1000);
+    }, 1000);
 }
 
-console.time('1');
 count();
