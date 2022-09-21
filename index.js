@@ -1,14 +1,13 @@
-const button = document.querySelector('#btn');
-
-setTimeout(() => {
-    const div = document.createElement('div');
-    div.classList.add('box');
-    document.body.append(div);
-    addListener(div);
-}, 2000);
-
-function addListener(elem) {
-    elem.addEventListener('click', ()=>{
-        console.log('You are clicked on me!');
-    })
-}
+const p = fetch('./user.json')
+ .then((response)=>{
+   return response.json();
+ })
+ .then((data)=>{
+      console.log(data);
+  })
+  .catch((err) => {
+    console.log('ERROR HAVE HAPPENED:' + err.message);
+  })
+  .finally(()=>{
+    console.log('FINALLY question closed')
+  })
