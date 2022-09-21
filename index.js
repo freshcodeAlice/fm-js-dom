@@ -1,24 +1,14 @@
-/* JSON - JavaScript Object Notation) */
+const button = document.querySelector('#btn');
 
+setTimeout(() => {
+    const div = document.createElement('div');
+    div.classList.add('box');
+    document.body.append(div);
+    addListener(div);
+}, 2000);
 
-const user = {
-    firstName: 'John',
-    lastName: 'Doe',
-    avatar: '',
-    age: 20,
-    footSize: 46,
-    address: {
-        street: 'Central',
-        house: 34
-    },
-    sayHello: function() { //function will be ignored!
-        console.log(`${this.firstName} say: Hello!`)
-    },
-    nickName: undefined, // will be ignored
-    superPower: null,
-    isSubscribe: true,
-    [Symbol()]: 'unique',  // will be ignored
-    friends: [{
-        firstName: 'Spiderman'
-    }, {}]
+function addListener(elem) {
+    elem.addEventListener('click', ()=>{
+        console.log('You are clicked on me!');
+    })
 }
