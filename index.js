@@ -1,21 +1,18 @@
-const p = new Promise(executor);
+console.log('start')
+const p = new Promise(function(resolve, reject) { // status: pending
+ console.log('In promise')
+  setTimeout(() => {
+    console.log('in timeout')
+  resolve('It time!')
+ }, 5000);
+}); 
 
-console.log(p);
 
-
-function executor(resolve, reject) {
-  /////////////////////
-    if(Math.round(Math.random())){
-      resolve();
-    } else {
-      reject();
-    }
-}
-
-/////////////
-
-p.then((data)=>{
+ p.then((data)=>{
   console.log(data);
-}, (err)=>{
-  console.error(err);
-})
+ }, (err) => {
+  console.log(err)
+ })
+
+
+ console.log('end');
