@@ -23,3 +23,11 @@
 .btn {
 
 }
+
+.weather {
+    display: none;
+}
+
+.weather-display {
+    display: block;
+}

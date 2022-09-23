@@ -39,33 +39,21 @@ function requestAPI(city) {
         })
 }
 
-
-/*
-
-        <article class="weather">
-            <p>City:</p>
-            <p>Temperature: </p>
-            <p>Pressure: </p>
-            <p>Weather description:</p>
-            <p>Wind:</p>
-        </article>
-
-*/
-
 function displayWeather(weatherData) {
-        const {name, main: {temp, pressure}, weather: {description}} = weatherData;
-        const article = document.createElement('article');
-        const city = document.createElement('p');
-        city.append('City:', name);
-        const temperature = document.createElement('p');
-        temperature.append('Temperature:', temp);
-        const press = document.createElement('p');
-        press.append('Pressure:', pressure);
-        const descr = document.createElement('p');
-        descr.append('Weather description:', description);
-        article.append(city, temperature, press, descr);
+        const {name, main: {temp, pressure}, weather, wind: {speed: windSpeed}} = weatherData;
+        const [{description}] = weather;
+        const article = document.querySelector('#weather-box');
+        article.classList.remove('weather');
 
-        const section = document.querySelector('.wrapper');
-        section.append(article);
+        appendInfo('city', name);
+        appendInfo('temp', temp);
+        appendInfo('press', pressure);
+        appendInfo('descr', description);
+        appendInfo('wind', windSpeed);
+}
 
+
+function appendInfo(id, info) {
+    const element = document.querySelector(`#${id}`);
+    element.textContent = info;
 }
